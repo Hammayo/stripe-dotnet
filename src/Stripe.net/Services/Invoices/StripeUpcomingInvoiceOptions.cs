@@ -10,6 +10,27 @@ namespace Stripe
         [JsonProperty("coupon")]
         public string CouponId { get; set; }
 
+        // this will actually send invoice_items. this is to flag it for the middleware
+        // to process it as a plugin
+        [JsonProperty("invoice_items_array_invoice")]
+        public List<StripeInvoiceUpcomingInvoiceItemOption> InvoiceItems { get; set; }
+
+        /// <summary>
+        /// A future date to anchor the subscription’s <see href="https://stripe.com/docs/subscriptions/billing-cycle">billing cycle</see>. This is used to determine the date of the first full invoice, and, for plans with <c>month</c> or <c>year</c> intervals, the day of the month for subsequent invoices.
+        /// </summary>
+        public DateTime? SubscriptionBillingCycleAnchor { get; set; }
+
+        [JsonProperty("subscription_billing_cycle_anchor")]
+        internal long? SubscriptionBillingCycleAnchorInternal
+        {
+            get
+            {
+                if (!SubscriptionBillingCycleAnchor.HasValue) return null;
+
+                return EpochTime.ConvertDateTimeToEpoch(SubscriptionBillingCycleAnchor.Value);
+            }
+        }
+
         [JsonProperty("subscription")]
         public string SubscriptionId { get; set; }
 
