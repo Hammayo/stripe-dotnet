@@ -17,16 +17,11 @@ namespace Stripe.Infrastructure.Middleware
             // use reflection so this works on the bin directory?
             ParserPlugins = new List<IParserPlugin>
             {
-                new AdditionalOwnerPlugin(),
                 new ArrayPlugin(),
                 new DateFilterPlugin(),
                 new DictionaryPlugin(),
                 new EnumPlugin(),
-                new OrderItemsPlugin(),
-                new PlanTiersPlugin(),
-                new SubscriptionItemPlugin(),
-                new SubscriptionItemUpdatedPlugin(),
-                new InvoiceSubscriptionItemPlugin()
+                new ListPlugin(),
             };
         }
 
